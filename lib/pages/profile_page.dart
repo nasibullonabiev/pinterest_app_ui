@@ -77,6 +77,7 @@ class _ProfilePageState extends State<ProfilePage> {
         children: [
           const SizedBox(height: 10,),
           Row(
+
             children: [
               const SizedBox(width: 10,),
               Container(
