@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
+
 class ProfilePage extends StatefulWidget {
 
   static const String id = 'profile_page';
@@ -68,9 +70,12 @@ class _ProfilePageState extends State<ProfilePage> {
 
         ),
         actions:  [
-          GestureDetector(
-            onTap: (){},
-              child: const Icon(Icons.settings,color: Colors.black,size: 25,))
+          Container(
+            margin: const EdgeInsets.only(right: 10),
+            child: GestureDetector(
+              onTap: (){},
+                child: const Icon(Icons.settings,color: Colors.black,size: 25,)),
+          )
         ],
       ),
       body: ListView(
@@ -83,7 +88,11 @@ class _ProfilePageState extends State<ProfilePage> {
               Container(
                 height: 50,
                 width: 300,
-                color: Colors.grey.shade300,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                  borderRadius: BorderRadius.circular(10)
+                ),
+
                 child: const TextField(
                   decoration: InputDecoration(
                     prefixIcon: Icon(Icons.search,color: Colors.grey,size: 25,),
@@ -91,11 +100,14 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
+              const SizedBox(width: 20,),
+              GestureDetector(
+                onTap: (){},
+                  child: Image.asset("assets/images/img_17.png",height: 20,width: 20,)),
               const SizedBox(width: 10,),
-              IconButton(onPressed: (){},
-                  icon: const Icon(Icons.display_settings_rounded,size: 30,)),
-              IconButton(onPressed: (){},
-                  icon: const Icon(Icons.add,size: 30,))
+              GestureDetector(
+                  onTap: (){},
+                  child: Image.asset("assets/images/img_16.png",height: 20,width: 20,))
             ],
           ),
           const SizedBox(height: 20,),
@@ -124,7 +136,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 150,
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20)
+
                         ),
                         image: DecorationImage(
                             image: AssetImage("assets/images/img_6.png",),
@@ -137,7 +149,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 148,
                     width: 150,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20),
+                        borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(20)
                         ),
                         image: DecorationImage(
@@ -185,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 150,
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20)
+
                         ),
                         image: DecorationImage(
                             image: AssetImage("assets/images/img_14.png",),
@@ -193,12 +205,12 @@ class _ProfilePageState extends State<ProfilePage> {
                         )
                     ),
                   ),
-                  const SizedBox(height: 5,),
+                  const SizedBox(height: 2,),
                   Container(
                     height: 148,
                     width: 150,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20),
+                        borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(20)
                         ),
                         image: DecorationImage(
@@ -246,7 +258,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     width: 150,
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(topRight: Radius.circular(20),
-                            bottomRight: Radius.circular(20)
+
                         ),
                         image: DecorationImage(
                             image: AssetImage("assets/images/img_14.png",),
@@ -259,7 +271,7 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 148,
                     width: 150,
                     decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.only(topRight: Radius.circular(20),
+                        borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(20)
                         ),
                         image: DecorationImage(
@@ -277,40 +289,92 @@ class _ProfilePageState extends State<ProfilePage> {
 
         ],
       ),
-      bottomNavigationBar: Container(
-        padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-
-        height: 130,
-        width: 30,
+      floatingActionButton: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.grey, width: .1),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: BottomNavigationBar(
-          selectedItemColor: Colors.black,
-          unselectedItemColor: Colors.grey,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           type: BottomNavigationBarType.fixed,
-
-          items: const [
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.home),
-                label: ''
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
+          selectedIconTheme: const IconThemeData(size: 40),
+          unselectedIconTheme: const IconThemeData(size: 40),
+          selectedItemColor: Colors.black,
+          unselectedItemColor: const Color(0xFFC4C4C4),
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            _selectedIndex = index;
+            setState(() {});
+          },
+          items: [
+            const BottomNavigationBarItem(
+              icon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_house.jpg"),
+              ),
+              label: "",
+              activeIcon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_house_black.jpg"),
+              ),
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search),
+              label: "",
+              activeIcon: Icon(CupertinoIcons.search),
+            ),
+            const BottomNavigationBarItem(
+              icon: Image(
+                height: 37,
+                width: 37,
+                image: AssetImage("assets/images/ic_message.jpg"),
+              ),
+              label: "",
+              activeIcon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_message_black.jpg"),
+              ),
             ),
             BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.search),
-                label: ''
+              icon: const Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/img_18.png"),
+              ),
+              label: "",
+              activeIcon: avatarBorder("assets/images/img_18.png"),
             ),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.mail),
-                label: ''
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(CupertinoIcons.circle),
-                label: ''
-            )
-
           ],
         ),
       ),
-
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
+}
+
+Widget avatarBorder(String image) {
+  return Container(
+    height: 37,
+    width: 37,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.black, width: 1),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Image(
+        image: AssetImage(image),
+      ),
+    ),
+  );
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:pinterest_app_ui/pages/message_page.dart';
+import 'package:pinterest_app_ui/pages/profile_page.dart';
+import 'package:pinterest_app_ui/pages/serch_page.dart';
 
 import '../models/post_model.dart';
 
@@ -231,43 +234,75 @@ class _HomePageState extends State<HomePage> {
           },
         ),
       ),
-      bottomNavigationBar: Container(
-        height: 90,
-        margin: const EdgeInsets.only(right: 60,left: 60),
-        padding: const EdgeInsets.only(),
-
+      floatingActionButton: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.grey, width: .1),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
         child: BottomNavigationBar(
-
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
           type: BottomNavigationBarType.fixed,
-          backgroundColor: Colors.white,
-          unselectedItemColor: Colors.grey,
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
+          selectedIconTheme: const IconThemeData(size: 40),
+          unselectedIconTheme: const IconThemeData(size: 40),
           selectedItemColor: Colors.black,
+          unselectedItemColor: const Color(0xFFC4C4C4),
           currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          items: const [
-            BottomNavigationBarItem(icon: Icon(CupertinoIcons.home,
+          onTap: (index) {
+            _selectedIndex = index;
+            setState(() {});
+          },
+          items: [
+            const BottomNavigationBarItem(
+              icon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_house.jpg"),
+              ),
+              label: "",
+              activeIcon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_house_black.jpg"),
+              ),
             ),
-                label: ""
+            const BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search),
+              label: "",
+              activeIcon: Icon(CupertinoIcons.search),
             ),
-            BottomNavigationBarItem(icon: Icon(CupertinoIcons.search,
+            const BottomNavigationBarItem(
+              icon: Image(
+                height: 37,
+                width: 37,
+                image: AssetImage("assets/images/ic_message.jpg"),
+              ),
+              label: "",
+              activeIcon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_message_black.jpg"),
+              ),
             ),
-                label: ""
+            BottomNavigationBarItem(
+              icon: const Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/img_18.png"),
+              ),
+              label: "",
+              activeIcon: avatarBorder("assets/images/img_18.png"),
             ),
-            BottomNavigationBarItem(icon: Icon(CupertinoIcons.mail,
-            ),
-                label: ""
-            ),
-            BottomNavigationBarItem(icon: Icon(Icons.circle,
-              size: 25,
-            ),
-                label: ""
-            ),
-
-
           ],
         ),
       ),
-
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 }
@@ -352,4 +387,21 @@ final List<Post> sharePosts = [
     '',
   ),
 ];
+
+Widget avatarBorder(String image) {
+  return Container(
+    height: 37,
+    width: 37,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.black, width: 1),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Image(
+        image: AssetImage(image),
+      ),
+    ),
+  );
+}
 

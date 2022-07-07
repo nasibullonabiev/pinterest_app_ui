@@ -39,3 +39,20 @@ class _SplashPageState extends State<SplashPage> {
     );
   }
 }
+
+Widget avatarBorder(String image) {
+  return Container(
+    height: 37,
+    width: 37,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.black, width: 1),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Image(
+        image: AssetImage(image),
+      ),
+    ),
+  );
+}

@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pinterest_app_ui/pages/profile_page.dart';
+import 'package:pinterest_app_ui/pages/serch_page.dart';
+
+import 'home_page.dart';
 
 class MessagePage extends StatefulWidget {
 
@@ -233,30 +237,95 @@ class _MessagePageState extends State<MessagePage> {
             child: Row(
               children: [
                 Expanded(
-                  child: SizedBox(
+                  child: Container(
                     height: 350,
                     width: 250,
-                    child: Image.asset("assets/images/img_4.png",fit: BoxFit.cover,),
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(topLeft: Radius.circular(20),
+                      bottomLeft: Radius.circular(20)
+                      ),
+                      image: DecorationImage(image: AssetImage("assets/images/img_4.png"),
+                      fit: BoxFit.cover
+                      )
+                    ),
+
                   ),
                 ),
 
-                const SizedBox(width: 5,),
+                const SizedBox(width: 2,),
 
                 Expanded(
-                  child: SizedBox(
-                    height: 350,
-                    width: 250,
-                    child: GridView.count(crossAxisCount: 2,
-                    mainAxisSpacing: 5,
-                    crossAxisSpacing: 5,
+                  child: Column(
                     children: [
-                      Image.asset("assets/images/img_5.png",fit: BoxFit.fill,),
-                      Image.asset("assets/images/img_6.png",fit: BoxFit.fill,),
-                      Image.asset("assets/images/img_7.png",fit: BoxFit.cover,),
-                      Image.asset("assets/images/img_8.png",fit: BoxFit.fill,)
+                      Row(
+                        children: [
+                          Container(
+                            height: 125,
+                            width: 95,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(image: AssetImage("assets/images/img_5.png"),
+                              fit: BoxFit.cover
+                              ),
+                                color: Colors.red,
 
+                            ),
+
+                          ),
+
+                          const SizedBox(width: 2,),
+
+                          Container(
+                            height: 125,
+                            width: 95,
+                            decoration: const BoxDecoration(
+                                image: DecorationImage(image: AssetImage("assets/images/img_6.png"),
+                                fit: BoxFit.cover
+                                ),
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20)
+                                )
+                            ),
+
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 2,),
+                      Row(
+                        children: [
+                          Container(
+                            height: 122,
+                            width: 95,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(image: AssetImage("assets/images/img_7.png"),
+                              fit: BoxFit.cover
+                              ),
+                                color: Colors.red,
+                                
+                            ),
+
+                          ),
+
+                          const SizedBox(width: 2,),
+
+                          Container(
+                            height: 122,
+                            width: 95,
+                            decoration: const BoxDecoration(
+                              image: DecorationImage(image: AssetImage(("assets/images/img_8.png")
+                              ),
+                              fit: BoxFit.cover
+                              ),
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20)
+                                )
+                            ),
+
+                          ),
+                        ],
+                      )
                     ],
-                    )
                   ),
                 )
               ],
@@ -296,39 +365,93 @@ class _MessagePageState extends State<MessagePage> {
 
         ],
       ),
-     bottomNavigationBar: Container(
-       padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
+      floatingActionButton: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(50),
+          border: Border.all(color: Colors.grey, width: .1),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 10),
+        child: BottomNavigationBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          landscapeLayout: BottomNavigationBarLandscapeLayout.centered,
+          type: BottomNavigationBarType.fixed,
+          selectedFontSize: 0,
+          unselectedFontSize: 0,
+          selectedIconTheme: const IconThemeData(size: 40),
+          unselectedIconTheme: const IconThemeData(size: 40),
+          selectedItemColor: Colors.black,
+          unselectedItemColor: const Color(0xFFC4C4C4),
+          currentIndex: _selectedIndex,
+          onTap: (index) {
+            _selectedIndex = index;
 
-       height: 130,
-       width: 30,
-       child: BottomNavigationBar(
-         selectedItemColor: Colors.black,
-         unselectedItemColor: Colors.grey,
-         currentIndex: _selectedIndex,
-         onTap: _onItemTapped,
-         type: BottomNavigationBarType.fixed,
-
-         items: const [
-           BottomNavigationBarItem(
-               icon: Icon(CupertinoIcons.home),
-             label: ''
-           ),
-           BottomNavigationBarItem(
-               icon: Icon(CupertinoIcons.search),
-               label: ''
-           ),
-           BottomNavigationBarItem(
-               icon: Icon(CupertinoIcons.mail),
-               label: ''
-           ),
-           BottomNavigationBarItem(
-               icon: Icon(CupertinoIcons.circle),
-               label: ''
-           )
-
-         ],
-       ),
-     ),
+            setState(() {});
+          },
+          items: [
+            const BottomNavigationBarItem(
+              icon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_house.jpg"),
+              ),
+              label: "",
+              activeIcon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_house_black.jpg"),
+              ),
+            ),
+            const BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search),
+              label: "",
+              activeIcon: Icon(CupertinoIcons.search),
+            ),
+            const BottomNavigationBarItem(
+              icon: Image(
+                height: 37,
+                width: 37,
+                image: AssetImage("assets/images/ic_message.jpg"),
+              ),
+              label: "",
+              activeIcon: Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/ic_message_black.jpg"),
+              ),
+            ),
+            BottomNavigationBarItem(
+              icon: const Image(
+                height: 35,
+                width: 35,
+                image: AssetImage("assets/images/img_18.png"),
+              ),
+              label: "",
+              activeIcon: avatarBorder("assets/images/img_18.png"),
+            ),
+          ],
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
+}
+
+Widget avatarBorder(String image) {
+  return Container(
+    height: 37,
+    width: 37,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: Colors.black, width: 1),
+    ),
+    child: Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: Image(
+        image: AssetImage(image),
+      ),
+    ),
+  );
 }
