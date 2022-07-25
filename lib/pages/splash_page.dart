@@ -1,10 +1,8 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:pinterest_app_ui/pages/home_page.dart';
 
 class SplashPage extends StatefulWidget {
-
   static const String id = 'splash_page';
 
   const SplashPage({Key? key}) : super(key: key);
@@ -33,9 +31,6 @@ class _SplashPageState extends State<SplashPage> {
       body: Center(
         child: Image.asset("assets/images/pinterest_logo.png"),
       ),
-
-
-
     );
   }
 }

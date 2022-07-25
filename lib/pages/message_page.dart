@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pinterest_app_ui/pages/profile_page.dart';
-import 'package:pinterest_app_ui/pages/serch_page.dart';
-
-import 'home_page.dart';
 
 class MessagePage extends StatefulWidget {
 
@@ -413,7 +409,7 @@ class _MessagePageState extends State<MessagePage> {
               icon: Image(
                 height: 37,
                 width: 37,
-                image: AssetImage("assets/images/ic_message.jpg"),
+                image: AssetImage("assets/images/im_message.png"),
               ),
               label: "",
               activeIcon: Image(

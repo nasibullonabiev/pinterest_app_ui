@@ -1,8 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-
 class ProfilePage extends StatefulWidget {
 
   static const String id = 'profile_page';
@@ -14,9 +12,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-
   int _selectedIndex = 0;
-
 
   void _onItemTapped(int index) {
     setState(() {
@@ -336,7 +332,7 @@ class _ProfilePageState extends State<ProfilePage> {
               icon: Image(
                 height: 37,
                 width: 37,
-                image: AssetImage("assets/images/ic_message.jpg"),
+                image: AssetImage("assets/images/im_message.png"),
               ),
               label: "",
               activeIcon: Image(
