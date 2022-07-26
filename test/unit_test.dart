@@ -9,7 +9,7 @@ import 'package:pinterest_app_ui/models/search_user_result_model.dart';
 import 'package:pinterest_app_ui/models/single_photo_model.dart';
 import 'package:pinterest_app_ui/models/user_s_collections_model.dart';
 import 'package:pinterest_app_ui/models/user_s_liked_photos.dart';
-import 'package:pinterest_app_ui/models/user_s_pohotos_model.dart';
+import 'package:pinterest_app_ui/models/user_s_photos_model.dart';
 import 'package:pinterest_app_ui/models/user_s_statistics.dart';
 import 'package:pinterest_app_ui/models/users_public_profile_model.dart';
 import 'package:pinterest_app_ui/services/network_service.dart';
