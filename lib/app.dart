@@ -6,10 +6,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       title: "Pinterest App",
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+              elevation: 0,
+              backgroundColor: Colors.white,
+              foregroundColor: Colors.black
+          )
+      ),
       debugShowCheckedModeBanner: false,
-      home: MainPage(),
+      home: const MainPage(),
     );
   }
 }

@@ -5,20 +5,21 @@ import '../models/single_photo_model.dart';
 import '../services/network_service.dart';
 import 'image_view.dart';
 
-class GalleryView extends StatefulWidget {
+class CollectionView extends StatefulWidget {
   final int crossAxisCount;
   final String api;
   final Map<String, String> params;
   final ScrollPhysics? physics;
-  const GalleryView({Key? key, this.crossAxisCount = 2, required this.api, required this.params, this.physics}) : super(key: key);
+  const CollectionView({Key? key, this.crossAxisCount = 2, required this.api, required this.params, this.physics}) : super(key: key);
 
   @override
-  State<GalleryView> createState() => _GalleryViewState();
+  State<CollectionView> createState() => _GalleryViewState();
 }
 
-class _GalleryViewState extends State<GalleryView> with AutomaticKeepAliveClientMixin{
-  List response =[];
-  List<SinglePhotoModel> items = [];
+class _GalleryViewState extends State<CollectionView> with AutomaticKeepAliveClientMixin{
+  Map<String, dynamic> response ={};
+  List items = [];
+  List<SinglePhotoModel> images = [];
   ScrollController controller = ScrollController();
   Map<String, String> params = {};
   int currentPage = 0;
@@ -38,8 +39,16 @@ class _GalleryViewState extends State<GalleryView> with AutomaticKeepAliveClient
     params['page'] = page.toString();
     String? resAllImages = await NetworkService.GET(widget.api, params);
     if(resAllImages != null){
-      response = jsonDecode(resAllImages);
-      items.addAll(response.map((e) => SinglePhotoModel.fromJson(e)).toList());
+      response = json.decode(resAllImages);
+      items.addAll(response["results"]);
+      print(items);
+      images.addAll(items.map((e) => SinglePhotoModel.fromJson(e)).toList());
+      print(images);
+      //   debugPrint(response.toString());
+      //   print("************");
+      //   debugPrint("SHUTSHUTSHUT ${response['results']} SHUT UPP");
+
+
       //items.addAll(imageListFromJson(resAllImages));
       setState(() {});
     }else{
@@ -70,8 +79,9 @@ class _GalleryViewState extends State<GalleryView> with AutomaticKeepAliveClient
       crossAxisSpacing: 10,
       padding: const EdgeInsets.all(10),
       itemBuilder: (context, index) {
-        return ImageView(image: items[index], crossAxisCount: widget.crossAxisCount,);
+        return ImageView(image: images[index], crossAxisCount: widget.crossAxisCount,);
       },
     );
   }
 }
+

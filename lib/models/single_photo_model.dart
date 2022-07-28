@@ -1,3 +1,11 @@
+import 'dart:convert';
+
+List<SinglePhotoModel> imageListFromJson(String str) {
+  List list = jsonDecode(str);
+  List<SinglePhotoModel> images = list.map((e) => SinglePhotoModel.fromJson(e)).toList();
+  return images;
+}
+
 class SinglePhotoModel {
   SinglePhotoModel({
       this.id, 

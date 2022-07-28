@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pinterest_app_ui/pages/mobile/home_screen.dart';
 import 'home_page.dart';
 
 class MainPage extends StatefulWidget {
@@ -13,19 +12,19 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
-      builder: (context, boxConstraints) {
-        if (boxConstraints.maxWidth < 580) {
-          crossAxisCount = 2;
-          return const HomePage();
+        builder: (context, boxConstraints) {
+          int crossAxisCount = boxConstraints.maxWidth ~/ 250;
+          if(boxConstraints.maxWidth < 580) {
+            // phone
+            return const HomePage(crossAxisCount: 2);
+          } if(boxConstraints.maxWidth < 1025) {
+            // tablet
+            return HomePage(crossAxisCount: crossAxisCount);
+          } else {
+            // desktop
+            return HomePage(crossAxisCount: crossAxisCount);
+          }
         }
-        if (boxConstraints.maxWidth < 1025) {
-          crossAxisCount = 4;
-          return HomePage();
-        } else {
-          crossAxisCount = 6;
-          return HomePage();
-        }
-      },
     );
   }
 }
