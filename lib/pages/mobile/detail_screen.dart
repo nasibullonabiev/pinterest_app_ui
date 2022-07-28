@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:pinterest_app_ui/models/single_photo_model.dart';
 import '../../services/network_service.dart';
 import '../../views/gallery_view.dart';
@@ -17,6 +18,11 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+
+
+  bool isLike = false;
+  bool visible = false;
+
   late SinglePhotoModel image;
   int vote = 0;
   @override
@@ -28,6 +34,13 @@ class _DetailPageState extends State<DetailPage> {
   void _convertData() {
     image = widget.image;
     setState(() {});
+  }
+
+  void favorite(){
+    setState(() {
+      isLike = !isLike;
+      visible = true;
+    });
   }
 
   @override
@@ -51,35 +64,70 @@ class _DetailPageState extends State<DetailPage> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              clipBehavior: Clip.antiAlias,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
-              ),
-              foregroundDecoration: BoxDecoration(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.center,
-                      colors: [
-                        Colors.black.withOpacity(0.9),
-                        Colors.black.withOpacity(0.6),
-                        Colors.black.withOpacity(0.2),
-                        Colors.black.withOpacity(0.1),
-                      ]
-                  )
-              ),
-              child: AspectRatio(
-                aspectRatio: (image.width! /100) / (image.height! /100),
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                  imageUrl: image.urls!.thumb!,
-                  placeholder: (context, url) => Container(
-                    color: Colors.primaries[Random().nextInt(18) % 18],
+            Stack(
+              children: [
+                GestureDetector(
+                  onDoubleTap: favorite,
+                  child: Container(
+                    clipBehavior: Clip.antiAlias,
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+                    ),
+                    foregroundDecoration: BoxDecoration(
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(30)),
+                        gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.center,
+                            colors: [
+                              Colors.black.withOpacity(0.9),
+                              Colors.black.withOpacity(0.6),
+                              Colors.black.withOpacity(0.2),
+                              Colors.black.withOpacity(0.1),
+                            ]
+                        )
+                    ),
+                    child: AspectRatio(
+                      aspectRatio: (image.width! /100) / (image.height! /100),
+                      child: CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        imageUrl: image.urls!.thumb!,
+                        placeholder: (context, url) => Container(
+                          color: Colors.primaries[Random().nextInt(18) % 18],
+                        ),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
+                      ),
+                    ),
                   ),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-              ),
+
+                if (!isLike && visible)
+                  Center(
+                      child: Lottie.asset(
+                          "assets/lottie/lottie_broken_heart.json",
+                          repeat: false, onLoaded: (lottieComposition) {
+                        Future.delayed(
+                          lottieComposition.duration,
+                              () {
+                            setState(() {
+                              visible = false;
+                            });
+                          },
+                        );
+                      })),
+                if (isLike && visible)
+                  Center(
+                      child: Lottie.asset("assets/lottie/lottie_heart.json",
+                          repeat: false, onLoaded: (lottieComposition) {
+                            Future.delayed(
+                              lottieComposition.duration,
+                                  () {
+                                setState(() {
+                                  visible = false;
+                                });
+                              },
+                            );
+                          }))
+              ],
             ),
             Container(
               height: 180,
@@ -116,15 +164,16 @@ class _DetailPageState extends State<DetailPage> {
                       Expanded(
                         flex: 3,
                         child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            primary: const Color.fromRGBO(239, 239, 239, 1),
-                            shape: const StadiumBorder(),
-                            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 5),
-                          ),
-                          child: const Text("Favorite", style: TextStyle(color: Colors.black, fontSize: 17.5, fontWeight: FontWeight.w600),),
-                        ),
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              primary: !isLike ?  const Color.fromRGBO(239, 239, 239, 1) : Colors.pink,
+                              shape: const StadiumBorder(),
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 20, horizontal: 15),
+                            ),
+                            child: Text("Favorite", style: TextStyle(color: !isLike ? Colors.black : Colors.black, fontSize: 17.5),)
+                        ) ,
                       ),
                       const SizedBox(width: 15,),
 

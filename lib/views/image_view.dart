@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import '../models/single_photo_model.dart';
 import '../pages/mobile/detail_screen.dart';
 
@@ -16,12 +17,24 @@ class ImageView extends StatefulWidget {
 
 class _ImageViewState extends State<ImageView> {
 
+  bool isLike = false;
+  bool visible = false;
+
   late SinglePhotoModel image;
   @override
   void initState() {
     super.initState();
     _convertData();
   }
+
+
+  void favorite(){
+    setState(() {
+      isLike = !isLike;
+      visible = true;
+    });
+  }
+
 
   void _convertData() {
     image = widget.image;
@@ -53,7 +66,7 @@ class _ImageViewState extends State<ImageView> {
       children: [
         // #image
         GestureDetector(
-          // onDoubleTap: _favorite,
+          onDoubleTap: favorite,
           onTap: openDetailPage,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(15),
@@ -69,6 +82,39 @@ class _ImageViewState extends State<ImageView> {
                     ),
                     errorWidget: (context, url, error) => const Icon(Icons.error),
                   ),
+                  if(!isLike && visible)
+                    Center(
+                        child: Lottie.asset(
+                            "assets/lottie/lottie_broken_heart.json",
+                            repeat: false,
+                            onLoaded: (lottieComposition) {
+                              Future.delayed(
+                                lottieComposition.duration,
+                                    () {
+                                  setState(() {
+                                    visible = false;
+                                  });
+                                },);
+                            }
+                        )
+                    ),
+
+                  if(isLike && visible)
+                    Center(
+                        child: Lottie.asset(
+                            "assets/lottie/lottie_heart.json",
+                            repeat: false,
+                            onLoaded: (lottieComposition) {
+                              Future.delayed(
+                                lottieComposition.duration,
+                                    () {
+                                  setState(() {
+                                    visible = false;
+                                  });
+                                },);
+                            }
+                        )
+                    ),
                 ],
               ),
             ),
